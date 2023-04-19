@@ -1,9 +1,15 @@
 package com.minis.core;
 
+
+
 public interface BeanFactory {
+    Object getBean(String name) throws BeansException;
 
-    Object getBean(String beanName) throws BeansException;
+    public void registerBean(String beanName, Object obj);
 
-    void registerBeanDefinition(BeanDefinition beanDefinition);
+    boolean containsBean(String name);
 
+    boolean isSingleton(String name);
+    boolean isPrototype(String name);
+    Class<?> getType(String name);
 }

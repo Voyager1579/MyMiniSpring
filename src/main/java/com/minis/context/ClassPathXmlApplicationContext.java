@@ -1,17 +1,6 @@
 package com.minis.context;
 
 import com.minis.core.*;
-import org.dom4j.Document;
-import org.dom4j.DocumentException;
-import org.dom4j.Element;
-import org.dom4j.io.SAXReader;
-
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 
 public class ClassPathXmlApplicationContext implements BeanFactory {
 
@@ -20,18 +9,39 @@ public class ClassPathXmlApplicationContext implements BeanFactory {
     public ClassPathXmlApplicationContext(String fileName) {
         Resource resource = new ClassPathXmlResource(fileName);
         BeanFactory beanFactory = new SimpleBeanFactory();
-        XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(beanFactory);
+        XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader((SimpleBeanFactory) beanFactory);
         reader.loadBeanDefinitions(resource);
         this.beanFactory = beanFactory;
     }
 
     //context再对外提供一个getBean，底下就是调用的BeanFactory对应的方法
-    public Object getBean(String beanName) throws BeansException {
+    public Object getBean(String beanName) throws BeansException{
         return this.beanFactory.getBean(beanName);
     }
 
-    public void registerBeanDefinition(BeanDefinition beanDefinition) {
-        this.beanFactory.registerBeanDefinition(beanDefinition);
+    public boolean containsBean(String name) {
+
+        return this.beanFactory.containsBean(name);
     }
+
+    @Override
+    public boolean isSingleton(String name) {
+        return false;
+    }
+
+    @Override
+    public boolean isPrototype(String name) {
+        return false;
+    }
+
+    @Override
+    public Class<?> getType(String name) {
+        return null;
+    }
+
+    public void registerBean(String beanName, Object obj) {
+        this.beanFactory.registerBean(beanName, obj);
+    }
+
 }
 
