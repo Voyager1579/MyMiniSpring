@@ -1,5 +1,7 @@
-package com.minis.core;
+package com.minis.beans;
 
+
+import com.minis.beans.BeanDefinition;
 
 public interface BeanDefinitionRegistry {
 

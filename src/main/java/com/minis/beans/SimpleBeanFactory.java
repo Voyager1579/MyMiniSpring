@@ -1,4 +1,6 @@
-package com.minis.core;
+package com.minis.beans;
+
+import com.minis.beans.*;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -8,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class SimpleBeanFactory extends DefaultSingletonBeanRegistry implements BeanFactory, BeanDefinitionRegistry{
+public class SimpleBeanFactory extends DefaultSingletonBeanRegistry implements BeanFactory, BeanDefinitionRegistry {
 
     private Map<String, BeanDefinition> beanDefinitionMap = new ConcurrentHashMap<>(256);
     private List<String> beanDefinitionNames = new ArrayList<>();

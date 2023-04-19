@@ -1,5 +1,9 @@
 package com.minis.context;
 
+import com.minis.beans.BeanFactory;
+import com.minis.beans.BeansException;
+import com.minis.beans.SimpleBeanFactory;
+import com.minis.beans.XmlBeanDefinitionReader;
 import com.minis.core.*;
 
 public class ClassPathXmlApplicationContext implements BeanFactory {
@@ -15,7 +19,7 @@ public class ClassPathXmlApplicationContext implements BeanFactory {
     }
 
     //context再对外提供一个getBean，底下就是调用的BeanFactory对应的方法
-    public Object getBean(String beanName) throws BeansException{
+    public Object getBean(String beanName) throws BeansException {
         return this.beanFactory.getBean(beanName);
     }
 

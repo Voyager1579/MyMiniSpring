@@ -1,6 +1,6 @@
 package com.minis;
 
-import com.minis.core.BeansException;
+import com.minis.beans.BeansException;
 import com.minis.context.ClassPathXmlApplicationContext;
 import com.minis.service.AService;
 

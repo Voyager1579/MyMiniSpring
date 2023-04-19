@@ -1,5 +1,6 @@
-package com.minis.core;
+package com.minis.beans;
 
+import com.minis.core.Resource;
 import org.dom4j.Element;
 
 import java.util.List;
