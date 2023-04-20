@@ -6,16 +6,21 @@ import com.minis.beans.SimpleBeanFactory;
 import com.minis.beans.XmlBeanDefinitionReader;
 import com.minis.core.*;
 
-public class ClassPathXmlApplicationContext implements BeanFactory {
+public class ClassPathXmlApplicationContext implements BeanFactory,ApplicationEventPublisher {
 
-    BeanFactory beanFactory;
+    SimpleBeanFactory beanFactory;
     //context负责整合容器的启动过程，读外部配置，解析Bean定义，创建BeanFactory
-    public ClassPathXmlApplicationContext(String fileName) {
-        Resource resource = new ClassPathXmlResource(fileName);
-        BeanFactory beanFactory = new SimpleBeanFactory();
-        XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader((SimpleBeanFactory) beanFactory);
-        reader.loadBeanDefinitions(resource);
-        this.beanFactory = beanFactory;
+    public ClassPathXmlApplicationContext(String fileName, boolean isRefresh) {
+        Resource res = new ClassPathXmlResource(fileName);
+        SimpleBeanFactory bf = new SimpleBeanFactory();
+        XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(bf);
+        reader.loadBeanDefinitions(res);
+
+        this.beanFactory = bf;
+
+        if (isRefresh) {
+            this.beanFactory.refresh();
+        }
     }
 
     //context再对外提供一个getBean，底下就是调用的BeanFactory对应的方法
@@ -47,5 +52,9 @@ public class ClassPathXmlApplicationContext implements BeanFactory {
         this.beanFactory.registerBean(beanName, obj);
     }
 
+    @Override
+    public void publishEvent(ApplicationEvent event) {
+
+    }
 }
 

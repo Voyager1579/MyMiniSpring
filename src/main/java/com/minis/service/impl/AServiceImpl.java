@@ -12,13 +12,22 @@ public class AServiceImpl implements AService {
 
     private String property2;
 
+    private BaseService bs;
+
     public AServiceImpl(String name, int level) {
         this.name = name;
         this.level = level;
     }
 
     public AServiceImpl() {
+    }
 
+    public void setBs(BaseService bs) {
+        this.bs = bs;
+    }
+
+    public BaseService getBs() {
+        return bs;
     }
 
     public void setProperty1(String property1) {
