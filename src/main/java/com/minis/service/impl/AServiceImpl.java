@@ -1,5 +1,6 @@
 package com.minis.service.impl;
 
+import com.minis.beans.factory.annotation.Autowired;
 import com.minis.service.AService;
 
 public class AServiceImpl implements AService {
@@ -12,6 +13,7 @@ public class AServiceImpl implements AService {
 
     private String property2;
 
+    @Autowired
     private BaseService bs;
 
     public AServiceImpl(String name, int level) {

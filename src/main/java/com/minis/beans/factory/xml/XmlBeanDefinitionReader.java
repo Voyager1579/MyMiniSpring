@@ -1,5 +1,10 @@
-package com.minis.beans;
+package com.minis.beans.factory.xml;
 
+import com.minis.beans.*;
+import com.minis.beans.factory.config.AutowireCapableBeanFactory;
+import com.minis.beans.factory.config.ConstructorArgumentValue;
+import com.minis.beans.factory.config.ConstructorArgumentValues;
+import com.minis.beans.factory.config.BeanDefinition;
 import com.minis.core.Resource;
 import org.dom4j.Element;
 
@@ -9,10 +14,10 @@ import java.util.List;
 
 public class XmlBeanDefinitionReader {
 
-    SimpleBeanFactory simpleBeanFactory;
+    AutowireCapableBeanFactory autowireCapableBeanFactory;
 
-    public XmlBeanDefinitionReader(SimpleBeanFactory simpleBeanFactory) {
-        this.simpleBeanFactory = simpleBeanFactory;
+    public XmlBeanDefinitionReader(AutowireCapableBeanFactory autowireCapableBeanFactory) {
+        this.autowireCapableBeanFactory = autowireCapableBeanFactory;
     }
 
     public void loadBeanDefinitions(Resource resource) {
@@ -25,12 +30,12 @@ public class XmlBeanDefinitionReader {
 
             //get constructor
             List<Element> constructorElements = element.elements("constructor-arg");
-            ArgumentValues AVS = new ArgumentValues();
+            ConstructorArgumentValues AVS = new ConstructorArgumentValues();
             for (Element e : constructorElements) {
                 String pType = e.attributeValue("type");
                 String pName = e.attributeValue("name");
                 String pValue = e.attributeValue("value");
-                AVS.addArgumentValue(new ArgumentValue(pType,pName,pValue));
+                AVS.addArgumentValue(new ConstructorArgumentValue(pType,pName,pValue));
             }
 
             beanDefinition.setConstructorArgumentValues(AVS);
@@ -63,7 +68,7 @@ public class XmlBeanDefinitionReader {
             beanDefinition.setDependsOn(refArray);
             //end of handle properties
 
-            this.simpleBeanFactory.registerBeanDefinition(beanID,beanDefinition);
+            this.autowireCapableBeanFactory.registerBeanDefinition(beanID,beanDefinition);
 
         }
     }

@@ -1,7 +1,10 @@
 package com.minis.service.impl;
 
+import com.minis.beans.factory.annotation.Autowired;
+
 public class BaseBaseService {
 
+    @Autowired
     private AServiceImpl as;
 
     public AServiceImpl getAs() {
