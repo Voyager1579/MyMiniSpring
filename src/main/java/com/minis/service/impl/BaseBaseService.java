@@ -5,14 +5,14 @@ import com.minis.beans.factory.annotation.Autowired;
 public class BaseBaseService {
 
     @Autowired
-    private AServiceImpl as;
+    private AServiceImpl aService;
 
     public AServiceImpl getAs() {
-        return as;
+        return aService;
     }
 
-    public void setAs(AServiceImpl as) {
-        this.as = as;
+    public void setAs(AServiceImpl aService) {
+        this.aService = aService;
     }
 
     public BaseBaseService() {

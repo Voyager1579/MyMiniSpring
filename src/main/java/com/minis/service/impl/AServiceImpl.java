@@ -14,7 +14,7 @@ public class AServiceImpl implements AService {
     private String property2;
 
     @Autowired
-    private BaseService bs;
+    private BaseService baseService;
 
     public AServiceImpl(String name, int level) {
         this.name = name;
@@ -24,12 +24,12 @@ public class AServiceImpl implements AService {
     public AServiceImpl() {
     }
 
-    public void setBs(BaseService bs) {
-        this.bs = bs;
+    public void setBs(BaseService baseService) {
+        this.baseService = baseService;
     }
 
     public BaseService getBs() {
-        return bs;
+        return baseService;
     }
 
     public void setProperty1(String property1) {
