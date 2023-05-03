@@ -1,28 +1,26 @@
 package com.minis.beans.factory.xml;
 
 import com.minis.beans.*;
-import com.minis.beans.factory.config.AutowireCapableBeanFactory;
 import com.minis.beans.factory.config.ConstructorArgumentValue;
 import com.minis.beans.factory.config.ConstructorArgumentValues;
 import com.minis.beans.factory.config.BeanDefinition;
+import com.minis.beans.factory.support.AbstractBeanFactory;
 import com.minis.core.Resource;
 import org.dom4j.Element;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class XmlBeanDefinitionReader {
 
-    AutowireCapableBeanFactory autowireCapableBeanFactory;
+    AbstractBeanFactory bf;
 
-    public XmlBeanDefinitionReader(AutowireCapableBeanFactory autowireCapableBeanFactory) {
-        this.autowireCapableBeanFactory = autowireCapableBeanFactory;
+    public XmlBeanDefinitionReader(AbstractBeanFactory bf) {
+        this.bf = bf;
     }
-
-    public void loadBeanDefinitions(Resource resource) {
-        while(resource.hasNext()){
-            Element element = (Element)resource.next();
+    public void loadBeanDefinitions(Resource res) {
+        while (res.hasNext()) {
+            Element element = (Element)res.next();
             String beanID=element.attributeValue("id");
             String beanClassName=element.attributeValue("class");
 
@@ -37,7 +35,6 @@ public class XmlBeanDefinitionReader {
                 String pValue = e.attributeValue("value");
                 AVS.addArgumentValue(new ConstructorArgumentValue(pType,pName,pValue));
             }
-
             beanDefinition.setConstructorArgumentValues(AVS);
             //end of handle constructor
 
@@ -60,16 +57,14 @@ public class XmlBeanDefinitionReader {
                     pV = pRef;
                     refs.add(pRef);
                 }
-                PVS.addPropertyValue(new PropertyValue(pType, pName, pV,isRef));
+                PVS.addPropertyValue(new PropertyValue(pType, pName, pV, isRef));
             }
-
             beanDefinition.setPropertyValues(PVS);
             String[] refArray = refs.toArray(new String[0]);
             beanDefinition.setDependsOn(refArray);
             //end of handle properties
 
-            this.autowireCapableBeanFactory.registerBeanDefinition(beanID,beanDefinition);
-
+            this.bf.registerBeanDefinition(beanID,beanDefinition);
         }
     }
 
